@@ -1,27 +1,26 @@
+import { getElement } from './util.js';
 
 class ProjectInput {
   templateElement: HTMLTemplateElement;
   hostElement: HTMLDivElement;
   element: HTMLFormElement;
+  titleInputElement: HTMLInputElement;
+  descriptionInputElement: HTMLTextAreaElement;
+  peopleInputElement: HTMLInputElement;
 
   constructor() {
-    const templateEl = document.getElementById('project-input') as HTMLTemplateElement;
-    if (templateEl) {
-      this.templateElement = templateEl;
-    } else {
-      throw new Error('Template element #project-input not found');
-    }
-
-    const hostEl = document.getElementById('app') as HTMLDivElement;
-    if (hostEl) {
-      this.hostElement = hostEl;
-    } else {
-      throw new Error('Host element #app not found');
-    }
+    this.templateElement = getElement('#project-input', HTMLTemplateElement);
+    this.hostElement = getElement('#app', HTMLDivElement);
 
     const importedNode = document.importNode(this.templateElement.content, true);
     this.element = importedNode.firstElementChild as HTMLFormElement;
+    this.element.id = 'user-input';
     this.attach();
+
+    this.titleInputElement = getElement('#title', HTMLInputElement);
+    this.descriptionInputElement = getElement('#description', HTMLTextAreaElement);
+    this.peopleInputElement = getElement('#people', HTMLInputElement);
+
   }
 
   private attach() {
@@ -30,3 +29,4 @@ class ProjectInput {
 }
 
 const projectInput = new ProjectInput();
+console.log(projectInput);
